@@ -63,12 +63,15 @@ const Navigation = () => {
         </div>
       </div>
       <div className="navbar-center">
-        <a className="btn btn-ghost normal-case text-xl font-mono font-black">
+        <Link
+          href="/"
+          className="btn btn-ghost normal-case text-xl font-mono font-black"
+        >
           <span className="badge font-black font-mono badge-primary mr-1">
             KK
           </span>
           Games
-        </a>
+        </Link>
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">
@@ -122,14 +125,16 @@ const GamesCard = () => {
         />
       </figure>
       <div className="card-body">
-        <h2 className="card-title">Game!</h2>
+        <h2 className="card-title">Dash!</h2>
         <p>
           Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
           eius, fuga veniam rem corrupti dignissimos consectetur quae voluptatem
           et voluptate.
         </p>
         <div className="card-actions justify-end mt-5">
-          <button className="btn btn-primary">Play now</button>
+          <Link href="/games/dash" className="btn btn-primary">
+            Play now
+          </Link>
         </div>
       </div>
     </div>

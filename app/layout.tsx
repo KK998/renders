@@ -1,10 +1,13 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Noto_Sans } from "next/font/google";
 
-const inter = Inter({ subsets: ["latin"] });
+const noto = Noto_Sans({
+  subsets: ["latin-ext", "latin"],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+});
 
 export const metadata = {
-  title: "KKGames",
+  title: "KK Games",
   description: "Free games by kk998",
 };
 
@@ -15,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={noto.className}>{children}</body>
     </html>
   );
 }
