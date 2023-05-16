@@ -1,7 +1,7 @@
 import "./globals.css";
-import { Noto_Sans } from "next/font/google";
+import { Poppins } from "next/font/google";
 
-const noto = Noto_Sans({
+const noto = Poppins({
   subsets: ["latin-ext", "latin"],
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
