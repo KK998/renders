@@ -9,7 +9,7 @@ export default function Home() {
       <main className="flex min-h-screen flex-col items-center justify-between">
         <Hero />
         <div
-          id="games"
+          id="renders"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 p-10"
         >
           <GamesCard
@@ -20,7 +20,7 @@ export default function Home() {
           />
           <GamesCard
             description="Render of a corvette car. Added some lights, rings and boxes for fun too."
-            link="/renders/dash"
+            link="/renders/car"
             title="Car"
             image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
           />
@@ -116,7 +116,7 @@ const Hero = () => {
             react-three/postprocessing and react-three/rapier.
           </p>
           <p className="mb-6">I hope you will enjoy.</p>
-          <a href="#games" className="btn btn-primary">
+          <a href="#renders" className="btn btn-primary">
             Lets` GO
           </a>
         </div>
