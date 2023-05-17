@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
@@ -11,11 +12,19 @@ export default function Home() {
           id="games"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 p-10"
         >
-          <GamesCard />
-          <GamesCard />
-          <GamesCard />
+          <GamesCard
+            description="Same game. Single box. 3 lanes. Run as far as you can."
+            link="/renders/dash"
+            title="Dash!"
+            image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
+          <GamesCard
+            description="Render of a corvette car. Added some lights, rings and boxes for fun too."
+            link="/renders/dash"
+            title="Car"
+            image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+          />
         </div>
-        PLACEHOLDER FOR INFO
       </main>
     </>
   );
@@ -70,7 +79,7 @@ const Navigation = () => {
           <span className="badge font-black font-mono badge-primary mr-1">
             KK
           </span>
-          Games
+          Render
         </Link>
       </div>
       <div className="navbar-end">
@@ -101,13 +110,14 @@ const Hero = () => {
       <div className="hero-content text-center">
         <div className="max-w-md">
           <h1 className="text-5xl font-bold">Hi, stranger</h1>
-          <p className="py-6">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Minima
-            necessitatibus excepturi molestias voluptates quaerat quam assumenda
-            ut reprehenderit, ad in.
+          <p className="pt-6 mb-4">
+            Here you can find some renders made by me. All the renders are made
+            with three.js, react-three/fiber, react-three/drei,
+            react-three/postprocessing and react-three/rapier.
           </p>
+          <p className="mb-6">I hope you will enjoy.</p>
           <a href="#games" className="btn btn-primary">
-            Lets` play
+            Lets` GO
           </a>
         </div>
       </div>
@@ -115,25 +125,31 @@ const Hero = () => {
   );
 };
 
-const GamesCard = () => {
+type GamesCardProps = {
+  title: string;
+  description: string;
+  image: string;
+  link: string;
+};
+
+const GamesCard = ({ title, description, image, link }: GamesCardProps) => {
   return (
     <div className="card flex-grow bg-base-100 shadow-xl">
-      <figure>
-        <img
-          src="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          alt="Game"
+      <div className="flex flex-col relative w-full h-60 overflow-hidden rounded-xl">
+        <Image
+          width={400}
+          height={200}
+          className="object-cover object-center w-full h-full"
+          alt="render"
+          src={image}
         />
-      </figure>
+      </div>
       <div className="card-body">
-        <h2 className="card-title">Dash!</h2>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Tempore
-          eius, fuga veniam rem corrupti dignissimos consectetur quae voluptatem
-          et voluptate.
-        </p>
+        <h2 className="card-title">{title}</h2>
+        <p>{description}</p>
         <div className="card-actions justify-end mt-5">
-          <Link href="/games/dash" className="btn btn-primary">
-            Play now
+          <Link href={link} className="btn btn-primary">
+            View Render
           </Link>
         </div>
       </div>

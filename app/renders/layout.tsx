@@ -13,7 +13,10 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
         <label htmlFor="game-drawer" className="drawer-overlay"></label>
         <ul className="menu p-4 w-80 bg-base-100 text-base-content">
           <li>
-            <Link href="/games/dash">Dash</Link>
+            <Link href="/renders/dash">Dash</Link>
+          </li>
+          <li>
+            <Link href="/renders/car">Car</Link>
           </li>
         </ul>
       </div>
@@ -56,7 +59,7 @@ const Navigation = () => {
           <span className="badge font-black font-mono badge-primary mr-1">
             KK
           </span>
-          Games
+          Renders
         </Link>
       </div>
       <div className="navbar-end">

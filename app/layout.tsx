@@ -7,8 +7,8 @@ const noto = Poppins({
 });
 
 export const metadata = {
-  title: "KK Games",
-  description: "Free games by kk998",
+  title: "KK Renders",
+  description: "Renders by kk998",
 };
 
 export default function RootLayout({
