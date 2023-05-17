@@ -18,11 +18,7 @@ const GameInfo = () => {
   return (
     <div className="container mx-auto p-10">
       <h1 className="card-title">Dash</h1>
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quos qui, quia
-        consequatur reiciendis obcaecati molestias numquam sed fugit laborum
-        fugiat?
-      </p>
+      <p>Sane game. Single box. 3 lanes. Run as far as you can.</p>
     </div>
   );
 };
@@ -43,7 +39,10 @@ const GameInstructions = () => {
           <kbd className="kbd">d</kbd>
           <kbd className="kbd">D</kbd>
         </div>
-        <div className="tooltip" data-tip="Exit Game">
+        <div className="tooltip" data-tip="Booost!">
+          <kbd className="kbd mt-1">SPACE</kbd>
+        </div>
+        <div className="tooltip" data-tip="Open/Close Menu">
           <kbd className="kbd mt-1">ESC</kbd>
         </div>
       </div>

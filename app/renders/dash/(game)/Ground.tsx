@@ -8,9 +8,9 @@ export default function Ground() {
 
   return (
     <group rotation={[-Math.PI / 2, 0, 0]}>
-      <CustomPane ground={ground} x={-1} />
+      <CustomPane ground={ground} x={-1.25} />
       <CustomPane ground={ground} x={0} />
-      <CustomPane ground={ground} x={1} />
+      <CustomPane ground={ground} x={1.25} />
     </group>
   );
 }

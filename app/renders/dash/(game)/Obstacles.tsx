@@ -1,5 +1,5 @@
 import React, { useMemo, useRef, useState } from "react";
-import { MeshWobbleMaterial } from "@react-three/drei";
+import { MeshWobbleMaterial, useKeyboardControls } from "@react-three/drei";
 import colors from "tailwindcss/colors";
 import type { Mesh } from "@/app/(lib)/types";
 import { useDashStore } from "./store";
@@ -30,6 +30,7 @@ const Obstacle = () => {
   );
 
   const [position, setPosition] = useState<Vector3Array>(resetPosition);
+  const isSpacePressed = useKeyboardControls((state) => state.space);
 
   useFrame(() => {
     if (
@@ -54,18 +55,23 @@ const Obstacle = () => {
         const isObstacleAtEnd = z > 5;
 
         if (isObstacleAtEnd) {
-          return [x, y, randomIntFromInterval(-30 * level, -200)];
+          return [x, y, randomIntFromInterval(-50 * level, -150 * level)];
         }
 
-        return [x, y, z + 0.115 * level];
+        let nextSpeed = isSpacePressed ? 0.4 * level : 0.115 * level;
+        if (nextSpeed > 2) {
+          nextSpeed = 2;
+        }
+        return [x, y, z + nextSpeed];
       });
     }
   });
-  const colorIndex = (level * 100) as 100 | 200;
+
+  const colorIndex = (level * 100 < 900 ? level * 100 : 900) as 100 | 200 | 300;
 
   return (
     <mesh position={position} ref={obstacle}>
-      <boxGeometry args={[0.5, 2, 1]} />
+      <boxGeometry args={[0.5, 2, 0.5]} />
       <MeshWobbleMaterial
         color={colors.red[colorIndex]}
         speed={1}
@@ -81,7 +87,7 @@ export default function Obstacles() {
   }));
 
   const obstacleArray = useMemo(
-    () => [...Array(Math.floor(100 * (level / 20)))],
+    () => [...Array(Math.floor(100 * (level / 25)))],
     [level]
   );
 

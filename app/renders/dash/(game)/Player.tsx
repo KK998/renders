@@ -8,6 +8,7 @@ const Player = () => {
   const playerRef = useRef<PlayerRef>(null);
   const setPlayerRef = useDashStore((state) => state.setPlayerRef);
   const togglePause = useDashStore((state) => state.togglePause);
+  const gameStatus = useDashStore((state) => state.gameStatus);
 
   const leftPressed = useKeyboardControls<Controls>((state) => state.left);
   const rightPressed = useKeyboardControls<Controls>((state) => state.right);
@@ -20,24 +21,24 @@ const Player = () => {
   }, [escPressed, togglePause]);
 
   useEffect(() => {
-    if (playerRef.current) {
+    if (playerRef.current && gameStatus === "playing") {
       setPlayerRef(playerRef);
     }
-  }, [playerRef, setPlayerRef]);
+  }, [playerRef, setPlayerRef, gameStatus]);
 
   useEffect(() => {
     if (playerRef.current) {
       const currentPosition = playerRef.current.position;
-      if (leftPressed && currentPosition.x > -1) {
+      if (leftPressed && currentPosition.x > -1.25) {
         playerRef.current.position.set(
-          currentPosition.x - 1,
+          currentPosition.x - 1.25,
           currentPosition.y,
           currentPosition.z
         );
       }
-      if (rightPressed && currentPosition.x < 1) {
+      if (rightPressed && currentPosition.x < 1.25) {
         playerRef.current.position.set(
-          currentPosition.x + 1,
+          currentPosition.x + 1.25,
           currentPosition.y,
           currentPosition.z
         );

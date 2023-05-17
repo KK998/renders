@@ -13,7 +13,7 @@ export default function Home() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 p-10"
         >
           <GamesCard
-            description="Same game. Single box. 3 lanes. Run as far as you can."
+            description="Sane game. Single box. 3 lanes. Run as far as you can."
             link="/renders/dash"
             title="Dash!"
             image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"

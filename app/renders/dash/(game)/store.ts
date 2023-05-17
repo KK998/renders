@@ -13,6 +13,7 @@ interface DashStore {
   currentGame: string;
   gameStatus: GameStatus;
   level: number;
+  nextLevel: number;
   score: number;
   playerRef?: React.RefObject<PlayerRef>;
   setPlayerRef: (ref: React.RefObject<PlayerRef>) => void;
@@ -32,6 +33,7 @@ export const useDashStore = create<DashStore>()(
         .update(`${new Date().getTime()}`)
         .digest("hex"),
       level: 1,
+      nextLevel: 10,
       score: 0,
       gameStatus: "start",
       setPlayerRef: (ref) => set({ playerRef: ref }),
@@ -39,10 +41,17 @@ export const useDashStore = create<DashStore>()(
       setGameStatus: (status) => set({ gameStatus: status }),
       incrementScore: () => {
         set((state) => {
-          const level = Math.floor(state.score / 10);
+          if (state.nextLevel < 1) {
+            const nextLevel = state.level + 1;
+            return {
+              score: state.score + 1,
+              level: nextLevel,
+              nextLevel: nextLevel * 10,
+            };
+          }
           return {
             score: state.score + 1,
-            level: level > 0 ? level : 1,
+            nextLevel: state.nextLevel - 1,
           };
         });
       },
