@@ -1,21 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as THREE from "three";
-import { Plane } from "@react-three/drei";
-import { useDashStore } from "./store";
-import { useFrame, useLoader } from "@react-three/fiber";
+import { MeshReflectorMaterial, Plane } from "@react-three/drei";
+import { useLoader } from "@react-three/fiber";
 
 export default function Ground() {
-  const isGamePlaying = useDashStore((state) => state.gameStatus === "playing");
-  const [ground, setGround] = useState(40);
-
-  useFrame(({ clock }) => {
-    if (isGamePlaying) {
-      const time = clock.getElapsedTime();
-      const speed = 0.1;
-      const offset = time * speed;
-      setGround((p) => p + offset);
-    }
-  });
+  const [ground] = useState(40);
 
   return (
     <group rotation={[-Math.PI / 2, 0, 0]}>
@@ -32,10 +21,41 @@ type CustomPaneProps = {
 };
 
 const CustomPane = ({ ground, x }: CustomPaneProps) => {
-  const texture = useLoader(THREE.TextureLoader, "/ground.jpeg");
+  const [roughness, normal] = useLoader(THREE.TextureLoader, [
+    "/textures/floor_bricks_02_rough_4k.jpg",
+    "/textures/floor_bricks_02_disp_4k.png",
+  ]);
+  useEffect(() => {
+    [roughness, normal].forEach((texture) => {
+      texture.wrapS = THREE.RepeatWrapping;
+      texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(5, 5);
+    });
+
+    normal.encoding = THREE.LinearEncoding;
+  }, [roughness, normal]);
+
   return (
-    <Plane args={[1, 1000]} position={[x, ground, -0.5]}>
-      <meshStandardMaterial map={texture} />
+    <Plane args={[1, 200]} position={[x, ground, -0.5]} receiveShadow>
+      <MeshReflectorMaterial
+        envMapIntensity={0}
+        dithering
+        color={[0.015, 0.015, 0.015]}
+        roughness={0.9}
+        blur={[200, 200]}
+        mixBlur={10}
+        mixStrength={10}
+        mixContrast={1}
+        resolution={256}
+        depthScale={0.01}
+        minDepthThreshold={0.9}
+        maxDepthThreshold={1}
+        depthToBlurRatioBias={1}
+        reflectorOffset={0.001}
+        mirror={1}
+        normalMap={normal}
+        roughnessMap={roughness}
+      />
     </Plane>
   );
 };

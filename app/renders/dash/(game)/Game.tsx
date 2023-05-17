@@ -8,6 +8,9 @@ import Hud from "./Hud";
 import Player from "./Player";
 import Ground from "./Ground";
 import SkyBox from "./SkyBox";
+import colors from "tailwindcss/colors";
+import Obstacles from "./Obstacles";
+import { useDashStore } from "./store";
 
 export const Controls = {
   left: "left",
@@ -18,6 +21,7 @@ export const Controls = {
 export type Controls = keyof typeof Controls;
 
 export default function Game() {
+  const currentGame = useDashStore((state) => state.currentGame);
   const map = useMemo<KeyboardControlsEntry<Controls>[]>(
     () => [
       { name: Controls.left, keys: ["ArrowLeft", "KeyA"] },
@@ -37,13 +41,15 @@ export default function Game() {
             fov: 50,
           }}
         >
+          <color attach="background" args={[colors.gray[700]]} />
           <ambientLight intensity={0.5} />
-          <directionalLight position={[10, 10, 5]} />
+          <spotLight position={[10, 10, 5]} />
           <SkyBox />
           <Suspense>
             <Physics>
               <group>
                 <Player />
+                <Obstacles key={currentGame} />
                 <Ground />
               </group>
             </Physics>

@@ -1,14 +1,23 @@
 import React, { useEffect, useRef } from "react";
-import { Box, ContactShadows, useKeyboardControls } from "@react-three/drei";
+import { useKeyboardControls } from "@react-three/drei";
 import { PlayerRef, useDashStore } from "./store";
 import { Controls } from "./Game";
+import colors from "tailwindcss/colors";
 
 const Player = () => {
   const playerRef = useRef<PlayerRef>(null);
   const setPlayerRef = useDashStore((state) => state.setPlayerRef);
+  const togglePause = useDashStore((state) => state.togglePause);
 
   const leftPressed = useKeyboardControls<Controls>((state) => state.left);
   const rightPressed = useKeyboardControls<Controls>((state) => state.right);
+  const escPressed = useKeyboardControls<Controls>((state) => state.escape);
+
+  useEffect(() => {
+    if (escPressed) {
+      togglePause();
+    }
+  }, [escPressed, togglePause]);
 
   useEffect(() => {
     if (playerRef.current) {
@@ -37,9 +46,10 @@ const Player = () => {
   }, [leftPressed, rightPressed, playerRef]);
 
   return (
-    <Box ref={playerRef} material-color="red" position={[0, 0, 0]}>
-      <ContactShadows frames={1} position={[0, 0.1, 0]} blur={1} far={1} />
-    </Box>
+    <mesh ref={playerRef} position={[0, 0, 0]} castShadow receiveShadow>
+      <boxGeometry args={[1, 1, 1]} />
+      <meshStandardMaterial color={colors.red[500]} />
+    </mesh>
   );
 };
 
