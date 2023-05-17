@@ -4,12 +4,9 @@ import React, { useEffect, useMemo, useState } from "react";
 import { renders } from "./renders";
 import RenderCard from "./RenderCard";
 import { useAppStore } from "./appStore";
-import { usePathname } from "next/navigation";
 
 const Search = () => {
   const isSearchOpen = useAppStore((state) => state.isSearchOpen);
-  const toggleSearch = useAppStore((state) => state.toggleSearch);
-  const pathname = usePathname();
 
   const [query, setQuery] = useState<string>("");
   const items = useMemo(
@@ -23,10 +20,6 @@ const Search = () => {
         : [],
     [query]
   );
-
-  useEffect(() => {
-    toggleSearch();
-  }, [pathname, toggleSearch]);
 
   useEffect(() => {
     if (isSearchOpen) {
@@ -76,7 +69,7 @@ const Search = () => {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 max-h-[60vh]">
           {items.length > 0 &&
             items.map((render) => (
-              <RenderCard key={render.title} {...render} />
+              <RenderCard key={render.title} replace {...render} />
             ))}
         </div>
       </div>
