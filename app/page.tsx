@@ -1,10 +1,12 @@
-/* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
 import Link from "next/link";
+import RenderCard from "./(lib)/RenderCard";
+import { renders } from "./(lib)/renders";
+import Search, { ToggleSearch } from "./(lib)/Search";
 
 export default function Home() {
   return (
     <>
+      <Search />
       <Navigation />
       <main className="flex min-h-screen flex-col items-center justify-between">
         <Hero />
@@ -12,18 +14,15 @@ export default function Home() {
           id="renders"
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10 my-10 p-10"
         >
-          <GamesCard
-            description="Sane game. Single box. 3 lanes. Run as far as you can."
-            link="/renders/dash"
-            title="Dash!"
-            image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
-          <GamesCard
-            description="Render of a corvette car. Added some lights, rings and boxes for fun too."
-            link="/renders/car"
-            title="Car"
-            image="https://images.pexels.com/photos/4836510/pexels-photo-4836510.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-          />
+          {renders.map((render) => (
+            <RenderCard
+              key={render.title}
+              description={render.description}
+              link={render.link}
+              title={render.title}
+              image={render.image}
+            />
+          ))}
         </div>
       </main>
     </>
@@ -83,22 +82,7 @@ const Navigation = () => {
         </Link>
       </div>
       <div className="navbar-end">
-        <button className="btn btn-ghost btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-            />
-          </svg>
-        </button>
+        <ToggleSearch />
       </div>
     </div>
   );
@@ -119,38 +103,6 @@ const Hero = () => {
           <a href="#renders" className="btn btn-primary">
             Lets` GO
           </a>
-        </div>
-      </div>
-    </div>
-  );
-};
-
-type GamesCardProps = {
-  title: string;
-  description: string;
-  image: string;
-  link: string;
-};
-
-const GamesCard = ({ title, description, image, link }: GamesCardProps) => {
-  return (
-    <div className="card flex-grow bg-base-100 shadow-xl">
-      <div className="flex flex-col relative w-full h-60 overflow-hidden rounded-xl">
-        <Image
-          width={400}
-          height={200}
-          className="object-cover object-center w-full h-full"
-          alt="render"
-          src={image}
-        />
-      </div>
-      <div className="card-body">
-        <h2 className="card-title">{title}</h2>
-        <p>{description}</p>
-        <div className="card-actions justify-end mt-5">
-          <Link href={link} className="btn btn-primary">
-            View Render
-          </Link>
         </div>
       </div>
     </div>
